@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "hello"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
 
@@ -23,6 +23,10 @@ class users(db.Model):
 @app.route('/')
 def home():
 	return render_template("index.html")
+
+@app.route('/view')
+def view():
+    return render_template("view.html", values=users.query.all())
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
@@ -64,6 +68,7 @@ def user():
         else:
             if "email" in session:
                 email = session["email"]
+
         return render_template("user.html", email=email)
     else:
         flash("You are not logged in!")
