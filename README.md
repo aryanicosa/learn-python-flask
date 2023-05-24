@@ -1,4 +1,4 @@
-# belajar-python-flask
+# learn-python-flask
 Repositori ini digunakan untuk menyimpan progress belajar python dan framework flask
 
 mulai dengan linux
